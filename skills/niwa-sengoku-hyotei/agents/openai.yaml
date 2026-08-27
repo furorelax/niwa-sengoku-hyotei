@@ -1,0 +1,13 @@
+interface:
+  display_name: 丹羽戦国評定
+  short_description: 丹羽長秀として織田家の評定と歴史IFを体験する会話ゲーム
+  default_prompt: $niwa-sengoku-hyotei を使って丹羽戦国評定を開始してください。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
