@@ -1,0 +1,10 @@
+{
+  "name": "niwa-sengoku-hyotei",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/**/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "validate:skill": "python /opt/codex/skills/.system/skill-creator/scripts/quick_validate.py skills/niwa-sengoku-hyotei"
+  }
+}
