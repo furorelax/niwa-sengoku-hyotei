@@ -1,0 +1,1715 @@
+{
+  "version": 2,
+  "phases": [
+    "pre_start",
+    "council",
+    "battle",
+    "conversation",
+    "recommendation",
+    "chapter_result",
+    "ending"
+  ],
+  "inputKinds": [
+    "first_input",
+    "start",
+    "play",
+    "council_opinion",
+    "select_character",
+    "ask_detail",
+    "show_help",
+    "show_characters",
+    "show_records",
+    "next_chapter"
+  ],
+  "routes": [
+    {
+      "phase": "pre_start",
+      "inputKind": "start",
+      "profile": "council_start"
+    },
+    {
+      "phase": "council",
+      "inputKind": "council_opinion",
+      "profile": "council_response"
+    },
+    {
+      "phase": "conversation",
+      "inputKind": "select_character",
+      "profile": "character_select"
+    },
+    {
+      "phase": "conversation",
+      "inputKind": "ask_detail",
+      "profile": "detail"
+    },
+    {
+      "phase": "chapter_result",
+      "inputKind": "next_chapter",
+      "profile": "council_start"
+    },
+    {
+      "phase": "*",
+      "inputKind": "show_help",
+      "profile": "help"
+    },
+    {
+      "phase": "*",
+      "inputKind": "show_characters",
+      "profile": "characters"
+    },
+    {
+      "phase": "*",
+      "inputKind": "show_records",
+      "profile": "records"
+    },
+    {
+      "phase": "pre_start",
+      "inputKind": "*",
+      "profile": "pre_start"
+    },
+    {
+      "phase": "council",
+      "inputKind": "*",
+      "profile": "council_response"
+    },
+    {
+      "phase": "battle",
+      "inputKind": "*",
+      "profile": "battle"
+    },
+    {
+      "phase": "conversation",
+      "inputKind": "*",
+      "profile": "character_talk"
+    },
+    {
+      "phase": "recommendation",
+      "inputKind": "*",
+      "profile": "recommendation"
+    },
+    {
+      "phase": "chapter_result",
+      "inputKind": "*",
+      "profile": "chapter_result"
+    },
+    {
+      "phase": "ending",
+      "inputKind": "*",
+      "profile": "ending"
+    }
+  ],
+  "profiles": {
+    "pre_start": [
+      "rules.pre_start",
+      "content.pre_start"
+    ],
+    "council_start": [
+      "rules.council_start"
+    ],
+    "council_response": [
+      "rules.council_response"
+    ],
+    "battle": [
+      "rules.battle",
+      "content.battle_common",
+      "content.battle_chapter_2"
+    ],
+    "character_select": [
+      "rules.conversation"
+    ],
+    "character_talk": [
+      "rules.conversation"
+    ],
+    "detail": [
+      "rules.detail"
+    ],
+    "recommendation": [
+      "rules.recommendation",
+      "content.recommendation"
+    ],
+    "chapter_result": [
+      "rules.chapter_result",
+      "content.chapter_result"
+    ],
+    "ending": [
+      "rules.chapter_result",
+      "content.ending"
+    ],
+    "help": [
+      "rules.information",
+      "content.help"
+    ],
+    "characters": [
+      "rules.information",
+      "content.characters"
+    ],
+    "records": [
+      "rules.information",
+      "content.records"
+    ]
+  },
+  "selectors": {
+    "council_start": {
+      "chapterRouteSources": {
+        "1": [
+          "content.council_start.1"
+        ],
+        "2": [
+          "content.council_start.2"
+        ],
+        "3:bui": [
+          "content.council_start.3:bui"
+        ],
+        "3:gogi": [
+          "content.council_start.3:gogi"
+        ],
+        "3:toyo": [
+          "content.council_start.3:toyo"
+        ]
+      }
+    },
+    "council_response": {
+      "chapterRouteSources": {
+        "1": [
+          "content.council_response.1",
+          "content.chapter_topic.1"
+        ],
+        "2": [
+          "content.council_response.2",
+          "content.chapter_topic.2"
+        ],
+        "3:bui": [
+          "content.council_response.3:bui",
+          "content.chapter_topic.3:bui"
+        ],
+        "3:gogi": [
+          "content.council_response.3:gogi",
+          "content.chapter_topic.3:gogi"
+        ],
+        "3:toyo": [
+          "content.council_response.3:toyo",
+          "content.chapter_topic.3:toyo"
+        ]
+      }
+    },
+    "character_select": {
+      "chapterRouteSources": {
+        "1": [
+          "content.conversation_ui.1",
+          "content.chapter_topic.1"
+        ],
+        "2": [
+          "content.conversation_ui.2",
+          "content.chapter_topic.2"
+        ],
+        "3:bui": [
+          "content.conversation_ui.3:bui",
+          "content.chapter_topic.3:bui"
+        ],
+        "3:gogi": [
+          "content.conversation_ui.3:gogi",
+          "content.chapter_topic.3:gogi"
+        ],
+        "3:toyo": [
+          "content.conversation_ui.3:toyo",
+          "content.chapter_topic.3:toyo"
+        ]
+      },
+      "characterSources": {
+        "nobutada": [
+          "character.card.nobutada",
+          "character.detail.nobutada"
+        ],
+        "katsuie": [
+          "character.card.katsuie",
+          "character.detail.katsuie",
+          "character.relationships.katsuie"
+        ],
+        "hideyoshi": [
+          "character.card.hideyoshi",
+          "character.detail.hideyoshi",
+          "character.relationships.hideyoshi"
+        ],
+        "mitsuhide": [
+          "character.card.mitsuhide",
+          "character.detail.mitsuhide",
+          "character.relationships.mitsuhide"
+        ],
+        "kazumasu": [
+          "character.card.kazumasu",
+          "character.detail.kazumasu",
+          "character.relationships.kazumasu"
+        ],
+        "fujitaka": [
+          "character.card.fujitaka",
+          "character.detail.fujitaka",
+          "character.relationships.fujitaka"
+        ],
+        "oichi": [
+          "character.card.oichi",
+          "character.detail.oichi"
+        ],
+        "toshiie": [
+          "character.card.toshiie",
+          "character.detail.toshiie",
+          "character.relationships.toshiie"
+        ],
+        "narimasa": [
+          "character.card.narimasa",
+          "character.detail.narimasa",
+          "character.relationships.narimasa"
+        ],
+        "nagayoshi": [
+          "character.card.nagayoshi",
+          "character.detail.nagayoshi",
+          "character.relationships.nagayoshi"
+        ],
+        "hidemasa": [
+          "character.card.hidemasa",
+          "character.detail.hidemasa",
+          "character.relationships.hidemasa"
+        ],
+        "ujisato": [
+          "character.card.ujisato",
+          "character.detail.ujisato",
+          "character.relationships.ujisato"
+        ],
+        "motosuke": [
+          "character.card.motosuke",
+          "character.detail.motosuke",
+          "character.relationships.motosuke"
+        ]
+      }
+    },
+    "character_talk": {
+      "chapterRouteSources": {
+        "1": [
+          "content.chapter_topic.1"
+        ],
+        "2": [
+          "content.chapter_topic.2"
+        ],
+        "3:bui": [
+          "content.chapter_topic.3:bui"
+        ],
+        "3:gogi": [
+          "content.chapter_topic.3:gogi"
+        ],
+        "3:toyo": [
+          "content.chapter_topic.3:toyo"
+        ]
+      },
+      "characterSources": {
+        "nobutada": [
+          "character.card.nobutada",
+          "character.detail.nobutada"
+        ],
+        "katsuie": [
+          "character.card.katsuie",
+          "character.detail.katsuie",
+          "character.relationships.katsuie"
+        ],
+        "hideyoshi": [
+          "character.card.hideyoshi",
+          "character.detail.hideyoshi",
+          "character.relationships.hideyoshi"
+        ],
+        "mitsuhide": [
+          "character.card.mitsuhide",
+          "character.detail.mitsuhide",
+          "character.relationships.mitsuhide"
+        ],
+        "kazumasu": [
+          "character.card.kazumasu",
+          "character.detail.kazumasu",
+          "character.relationships.kazumasu"
+        ],
+        "fujitaka": [
+          "character.card.fujitaka",
+          "character.detail.fujitaka",
+          "character.relationships.fujitaka"
+        ],
+        "oichi": [
+          "character.card.oichi",
+          "character.detail.oichi"
+        ],
+        "toshiie": [
+          "character.card.toshiie",
+          "character.detail.toshiie",
+          "character.relationships.toshiie"
+        ],
+        "narimasa": [
+          "character.card.narimasa",
+          "character.detail.narimasa",
+          "character.relationships.narimasa"
+        ],
+        "nagayoshi": [
+          "character.card.nagayoshi",
+          "character.detail.nagayoshi",
+          "character.relationships.nagayoshi"
+        ],
+        "hidemasa": [
+          "character.card.hidemasa",
+          "character.detail.hidemasa",
+          "character.relationships.hidemasa"
+        ],
+        "ujisato": [
+          "character.card.ujisato",
+          "character.detail.ujisato",
+          "character.relationships.ujisato"
+        ],
+        "motosuke": [
+          "character.card.motosuke",
+          "character.detail.motosuke",
+          "character.relationships.motosuke"
+        ]
+      }
+    },
+    "detail": {
+      "chapterRouteSources": {
+        "1": [
+          "content.chapter_topic.1"
+        ],
+        "2": [
+          "content.chapter_topic.2"
+        ],
+        "3:bui": [
+          "content.chapter_topic.3:bui"
+        ],
+        "3:gogi": [
+          "content.chapter_topic.3:gogi"
+        ],
+        "3:toyo": [
+          "content.chapter_topic.3:toyo"
+        ]
+      },
+      "characterSources": {
+        "nobutada": [
+          "character.card.nobutada",
+          "character.detail.nobutada"
+        ],
+        "katsuie": [
+          "character.card.katsuie",
+          "character.detail.katsuie",
+          "character.relationships.katsuie"
+        ],
+        "hideyoshi": [
+          "character.card.hideyoshi",
+          "character.detail.hideyoshi",
+          "character.relationships.hideyoshi"
+        ],
+        "mitsuhide": [
+          "character.card.mitsuhide",
+          "character.detail.mitsuhide",
+          "character.relationships.mitsuhide"
+        ],
+        "kazumasu": [
+          "character.card.kazumasu",
+          "character.detail.kazumasu",
+          "character.relationships.kazumasu"
+        ],
+        "fujitaka": [
+          "character.card.fujitaka",
+          "character.detail.fujitaka",
+          "character.relationships.fujitaka"
+        ],
+        "oichi": [
+          "character.card.oichi",
+          "character.detail.oichi"
+        ],
+        "toshiie": [
+          "character.card.toshiie",
+          "character.detail.toshiie",
+          "character.relationships.toshiie"
+        ],
+        "narimasa": [
+          "character.card.narimasa",
+          "character.detail.narimasa",
+          "character.relationships.narimasa"
+        ],
+        "nagayoshi": [
+          "character.card.nagayoshi",
+          "character.detail.nagayoshi",
+          "character.relationships.nagayoshi"
+        ],
+        "hidemasa": [
+          "character.card.hidemasa",
+          "character.detail.hidemasa",
+          "character.relationships.hidemasa"
+        ],
+        "ujisato": [
+          "character.card.ujisato",
+          "character.detail.ujisato",
+          "character.relationships.ujisato"
+        ],
+        "motosuke": [
+          "character.card.motosuke",
+          "character.detail.motosuke",
+          "character.relationships.motosuke"
+        ]
+      },
+      "detailSourcePrefix": "detail.answer."
+    }
+  },
+  "characters": [
+    "nobutada",
+    "katsuie",
+    "hideyoshi",
+    "mitsuhide",
+    "kazumasu",
+    "fujitaka",
+    "oichi",
+    "toshiie",
+    "narimasa",
+    "nagayoshi",
+    "hidemasa",
+    "ujisato",
+    "motosuke"
+  ],
+  "sources": {
+    "rules.pre_start": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 1. 基本",
+          "endHeading": "## 4. 開始と評定"
+        }
+      ]
+    },
+    "rules.council_start": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 2. 進行と状態",
+          "endHeading": "## 4. 開始と評定"
+        }
+      ]
+    },
+    "rules.council_response": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 3. 共通出力",
+          "endHeading": "## 4. 開始と評定"
+        }
+      ]
+    },
+    "rules.battle": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 2. 進行と状態",
+          "endHeading": "## 3. 共通出力"
+        },
+        {
+          "startHeading": "## 11. デバッグ",
+          "endHeading": "## 13. 最終確認"
+        }
+      ]
+    },
+    "rules.conversation": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 3. 共通出力",
+          "endHeading": "## 7. 人物の出入り"
+        },
+        {
+          "startHeading": "## 12. 会話品質",
+          "endHeading": "## 13. 最終確認"
+        }
+      ]
+    },
+    "rules.detail": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 5. 個人会話",
+          "endHeading": "## 6. 詳しく聞く"
+        }
+      ]
+    },
+    "rules.recommendation": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 3. 共通出力",
+          "endHeading": "## 3. 共通出力"
+        },
+        {
+          "startHeading": "## 9. 信忠への進言",
+          "endHeading": "## 9. 信忠への進言"
+        }
+      ]
+    },
+    "rules.chapter_result": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 3. 共通出力",
+          "endHeading": "## 3. 共通出力"
+        },
+        {
+          "startHeading": "## 10. 章末とエンディング",
+          "endHeading": "## 10. 章末とエンディング"
+        }
+      ]
+    },
+    "rules.information": {
+      "file": "niwa_inst_v132.md",
+      "ranges": [
+        {
+          "startHeading": "## 3. 共通出力",
+          "endHeading": "## 3. 共通出力"
+        },
+        {
+          "startHeading": "## 8. 情報表示",
+          "endHeading": "## 8. 情報表示"
+        }
+      ]
+    },
+    "content.pre_start": {
+      "file": "niwa_prestart_v1.md",
+      "ranges": [
+        {
+          "startHeading": "# 丹羽戦国評定 プレイ前固定出力 v1",
+          "endHeading": "## プレイ前のおすすめ設定"
+        }
+      ]
+    },
+    "content.battle_common": {
+      "file": "niwa_battle_system_v7.md",
+      "ranges": [
+        {
+          "startHeading": "# 丹羽長秀ゲーム：合戦システム v7",
+          "endHeading": "# 19. 最終安全確認"
+        }
+      ]
+    },
+    "content.battle_chapter_2": {
+      "file": "niwa_battle_ch02_v2.md",
+      "ranges": [
+        {
+          "startHeading": "# 丹羽長秀ゲーム：第2章模擬戦 v2",
+          "endHeading": "# 10. 合戦終了時に残す第2章要約"
+        }
+      ]
+    },
+    "content.recommendation": {
+      "file": "niwa_shingen_flow_v5.md",
+      "ranges": [
+        {
+          "startHeading": "# 丹羽長秀ゲーム：進言フェーズ 固定出力 v5",
+          "endHeading": "### 権限と影響力を抑える人物を一人選んでください",
+          "endHeadingOccurrence": 5
+        }
+      ]
+    },
+    "content.chapter_result": {
+      "file": "niwa_chapter_end_v3.md",
+      "ranges": [
+        {
+          "startHeading": "# 丹羽長秀ゲーム：章帰結 生成カード v3",
+          "endHeading": "## 第3章「疵ある才人」"
+        }
+      ]
+    },
+    "content.ending": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 10-D. エンディング",
+          "endHeading": "## 10-H. 終了表示"
+        }
+      ]
+    },
+    "content.help": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 0-B. 「遊び方」表示正本",
+          "endHeading": "### 操作"
+        }
+      ]
+    },
+    "content.characters": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 0-C. 固定人物画像表",
+          "endHeading": "## 0-C. 固定人物画像表"
+        },
+        {
+          "startHeading": "## 3-B. 人物一覧・評定初登場用の短い紹介",
+          "endHeading": "## 3-B. 人物一覧・評定初登場用の短い紹介"
+        }
+      ]
+    },
+    "content.records": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 10-A. 章結果の記録",
+          "endHeading": "## 10-A. 章結果の記録"
+        }
+      ]
+    },
+    "content.council_start.1": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_HYOTEI_CH01",
+          "endMarker": "END_HYOTEI_CH01"
+        }
+      ]
+    },
+    "content.council_response.1": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_AFTER_HYOTEI_CH01",
+          "endMarker": "END_AFTER_HYOTEI_CH01"
+        }
+      ]
+    },
+    "content.council_start.2": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_HYOTEI_CH02",
+          "endMarker": "END_HYOTEI_CH02"
+        }
+      ]
+    },
+    "content.council_response.2": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_AFTER_HYOTEI_CH02",
+          "endMarker": "END_AFTER_HYOTEI_CH02"
+        }
+      ]
+    },
+    "content.council_start.3:bui": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_HYOTEI_CH03_BUI",
+          "endMarker": "END_HYOTEI_CH03_BUI"
+        }
+      ]
+    },
+    "content.council_response.3:bui": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_AFTER_HYOTEI_CH03_BUI",
+          "endMarker": "END_AFTER_HYOTEI_CH03_BUI"
+        }
+      ]
+    },
+    "content.council_start.3:gogi": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_HYOTEI_CH03_GOGI",
+          "endMarker": "END_HYOTEI_CH03_GOGI"
+        }
+      ]
+    },
+    "content.council_response.3:gogi": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_AFTER_HYOTEI_CH03_GOGI",
+          "endMarker": "END_AFTER_HYOTEI_CH03_GOGI"
+        }
+      ]
+    },
+    "content.council_start.3:toyo": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_HYOTEI_CH03_TOYO",
+          "endMarker": "END_HYOTEI_CH03_TOYO"
+        }
+      ]
+    },
+    "content.council_response.3:toyo": {
+      "file": "niwa_hyotei_start_v10.md",
+      "ranges": [
+        {
+          "startMarker": "START_AFTER_HYOTEI_CH03_TOYO",
+          "endMarker": "END_AFTER_HYOTEI_CH03_TOYO"
+        }
+      ]
+    },
+    "content.chapter_topic.1": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 7. 第1章「信長の葬礼」",
+          "endHeading": "# 8. 第2章「若手登用」"
+        }
+      ]
+    },
+    "content.chapter_topic.2": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 8. 第2章「若手登用」",
+          "endHeading": "# 9. 第3章分岐"
+        }
+      ]
+    },
+    "content.chapter_topic.3:bui": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 9-A. 武威ルート「陣中の面目」",
+          "endHeading": "## 案件",
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "content.chapter_topic.3:gogi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 案件",
+          "startHeadingOccurrence": 2,
+          "endHeading": "## 案件",
+          "endHeadingOccurrence": 3
+        }
+      ]
+    },
+    "content.chapter_topic.3:toyo": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 案件",
+          "startHeadingOccurrence": 3,
+          "endHeading": "## 10-A. 章結果の記録"
+        }
+      ]
+    },
+    "character.card.nobutada": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 織田信忠",
+          "endHeading": "### 織田信忠",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.nobutada": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-A. 織田信忠",
+          "endHeading": "# 5-B. 柴田勝家"
+        }
+      ]
+    },
+    "character.card.katsuie": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 柴田勝家",
+          "endHeading": "### 柴田勝家",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.katsuie": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-B. 柴田勝家",
+          "endHeading": "# 5-C. 羽柴秀吉"
+        }
+      ]
+    },
+    "character.card.hideyoshi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 羽柴秀吉",
+          "endHeading": "### 羽柴秀吉",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.hideyoshi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-C. 羽柴秀吉",
+          "endHeading": "# 5-D. 明智光秀"
+        }
+      ]
+    },
+    "character.card.mitsuhide": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 明智光秀",
+          "endHeading": "### 明智光秀",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.mitsuhide": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-D. 明智光秀",
+          "endHeading": "# 5-E. 滝川一益"
+        }
+      ]
+    },
+    "character.card.kazumasu": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 滝川一益",
+          "endHeading": "### 滝川一益",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.kazumasu": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-E. 滝川一益",
+          "endHeading": "# 5-F. 細川藤孝"
+        }
+      ]
+    },
+    "character.card.fujitaka": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 細川藤孝",
+          "endHeading": "### 細川藤孝",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.fujitaka": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-F. 細川藤孝",
+          "endHeading": "# 5-G. お市"
+        }
+      ]
+    },
+    "character.card.oichi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### お市",
+          "endHeading": "### お市",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.oichi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-G. お市",
+          "endHeading": "# 5-H. 前田利家"
+        }
+      ]
+    },
+    "character.card.toshiie": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 前田利家",
+          "endHeading": "### 前田利家",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.toshiie": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-H. 前田利家",
+          "endHeading": "# 5-I. 佐々成政"
+        }
+      ]
+    },
+    "character.card.narimasa": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 佐々成政",
+          "endHeading": "### 佐々成政",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.narimasa": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-I. 佐々成政",
+          "endHeading": "# 5-J. 森長可"
+        }
+      ]
+    },
+    "character.card.nagayoshi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 森長可",
+          "endHeading": "### 森長可",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.nagayoshi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-J. 森長可",
+          "endHeading": "# 5-K. 堀秀政"
+        }
+      ]
+    },
+    "character.card.hidemasa": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 堀秀政",
+          "endHeading": "### 堀秀政",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.hidemasa": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-K. 堀秀政",
+          "endHeading": "# 5-L. 蒲生氏郷"
+        }
+      ]
+    },
+    "character.card.ujisato": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 蒲生氏郷",
+          "endHeading": "### 蒲生氏郷",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.ujisato": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-L. 蒲生氏郷",
+          "endHeading": "# 5-M. 池田元介"
+        }
+      ]
+    },
+    "character.card.motosuke": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "### 池田元介",
+          "endHeading": "### 池田元介",
+          "startHeadingOccurrence": 2,
+          "endHeadingOccurrence": 2
+        }
+      ]
+    },
+    "character.detail.motosuke": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "# 5-M. 池田元介",
+          "endHeading": "# 6. 人物関係と組み合わせ"
+        }
+      ]
+    },
+    "character.relationships.katsuie": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 勝家と秀吉",
+          "endHeading": "## 勝家と秀吉"
+        },
+        {
+          "startHeading": "## 勝家と光秀",
+          "endHeading": "## 勝家と光秀"
+        }
+      ]
+    },
+    "character.relationships.hideyoshi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 勝家と秀吉",
+          "endHeading": "## 勝家と秀吉"
+        },
+        {
+          "startHeading": "## 光秀と秀吉",
+          "endHeading": "## 光秀と秀吉"
+        },
+        {
+          "startHeading": "## 秀吉と成政",
+          "endHeading": "## 秀吉と成政"
+        }
+      ]
+    },
+    "character.relationships.mitsuhide": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 勝家と光秀",
+          "endHeading": "## 勝家と光秀"
+        },
+        {
+          "startHeading": "## 光秀と秀吉",
+          "endHeading": "## 光秀と秀吉"
+        },
+        {
+          "startHeading": "## 光秀と藤孝",
+          "endHeading": "## 光秀と藤孝"
+        }
+      ]
+    },
+    "character.relationships.kazumasu": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 一益と他の人物",
+          "endHeading": "## 一益と他の人物"
+        }
+      ]
+    },
+    "character.relationships.fujitaka": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 光秀と藤孝",
+          "endHeading": "## 光秀と藤孝"
+        }
+      ]
+    },
+    "character.relationships.toshiie": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 利家と成政",
+          "endHeading": "## 利家と成政"
+        },
+        {
+          "startHeading": "## 利家と織田家中",
+          "endHeading": "## 利家と織田家中"
+        }
+      ]
+    },
+    "character.relationships.narimasa": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 利家と成政",
+          "endHeading": "## 利家と成政"
+        },
+        {
+          "startHeading": "## 秀吉と成政",
+          "endHeading": "## 秀吉と成政"
+        }
+      ]
+    },
+    "character.relationships.nagayoshi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 若い世代",
+          "endHeading": "## 若い世代"
+        }
+      ]
+    },
+    "character.relationships.hidemasa": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 若い世代",
+          "endHeading": "## 若い世代"
+        }
+      ]
+    },
+    "character.relationships.ujisato": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 若い世代",
+          "endHeading": "## 若い世代"
+        }
+      ]
+    },
+    "character.relationships.motosuke": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## 若手と池田元介を含む追加関係",
+          "endHeading": "## 若手と池田元介を含む追加関係"
+        }
+      ]
+    },
+    "detail.answer.K001": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K001",
+          "endMarker": "@@K002"
+        }
+      ]
+    },
+    "detail.answer.K002": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K002",
+          "endMarker": "@@K003"
+        }
+      ]
+    },
+    "detail.answer.K003": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K003",
+          "endMarker": "@@K004"
+        }
+      ]
+    },
+    "detail.answer.K004": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K004",
+          "endMarker": "@@K005"
+        }
+      ]
+    },
+    "detail.answer.K005": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K005",
+          "endMarker": "@@K006"
+        }
+      ]
+    },
+    "detail.answer.K006": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K006",
+          "endMarker": "@@K007"
+        }
+      ]
+    },
+    "detail.answer.K007": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K007",
+          "endMarker": "@@K008"
+        }
+      ]
+    },
+    "detail.answer.K008": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K008",
+          "endMarker": "@@K009"
+        }
+      ]
+    },
+    "detail.answer.K009": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K009",
+          "endMarker": "@@K010"
+        }
+      ]
+    },
+    "detail.answer.K010": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K010",
+          "endMarker": "@@K011"
+        }
+      ]
+    },
+    "detail.answer.K011": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K011",
+          "endMarker": "@@K012"
+        }
+      ]
+    },
+    "detail.answer.K012": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K012",
+          "endMarker": "@@K013"
+        }
+      ]
+    },
+    "detail.answer.K013": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K013",
+          "endMarker": "@@K014"
+        }
+      ]
+    },
+    "detail.answer.K014": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K014",
+          "endMarker": "@@K015"
+        }
+      ]
+    },
+    "detail.answer.K015": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K015",
+          "endMarker": "@@K016"
+        }
+      ]
+    },
+    "detail.answer.K016": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K016",
+          "endMarker": "@@K017"
+        }
+      ]
+    },
+    "detail.answer.K017": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K017",
+          "endMarker": "@@K018"
+        }
+      ]
+    },
+    "detail.answer.K018": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K018",
+          "endMarker": "@@K019"
+        }
+      ]
+    },
+    "detail.answer.K019": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K019",
+          "endMarker": "@@K020"
+        }
+      ]
+    },
+    "detail.answer.K020": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K020",
+          "endMarker": "@@K021"
+        }
+      ]
+    },
+    "detail.answer.K021": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K021",
+          "endMarker": "@@K022"
+        }
+      ]
+    },
+    "detail.answer.K022": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K022",
+          "endMarker": "@@K023"
+        }
+      ]
+    },
+    "detail.answer.K023": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K023",
+          "endMarker": "@@K024"
+        }
+      ]
+    },
+    "detail.answer.K024": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K024",
+          "endMarker": "@@K025"
+        }
+      ]
+    },
+    "detail.answer.K025": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K025",
+          "endMarker": "@@K026"
+        }
+      ]
+    },
+    "detail.answer.K026": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K026",
+          "endMarker": "@@K027"
+        }
+      ]
+    },
+    "detail.answer.K027": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K027",
+          "endMarker": "@@K028"
+        }
+      ]
+    },
+    "detail.answer.K028": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K028",
+          "endMarker": "@@K029"
+        }
+      ]
+    },
+    "detail.answer.K029": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K029",
+          "endMarker": "@@K030"
+        }
+      ]
+    },
+    "detail.answer.K030": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K030",
+          "endMarker": "@@K031"
+        }
+      ]
+    },
+    "detail.answer.K031": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K031",
+          "endMarker": "@@K032"
+        }
+      ]
+    },
+    "detail.answer.K032": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K032",
+          "endMarker": "@@K033"
+        }
+      ]
+    },
+    "detail.answer.K033": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K033",
+          "endMarker": "@@K034"
+        }
+      ]
+    },
+    "detail.answer.K034": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K034",
+          "endMarker": "@@K035"
+        }
+      ]
+    },
+    "detail.answer.K035": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K035",
+          "endMarker": "@@K036"
+        }
+      ]
+    },
+    "detail.answer.K036": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K036",
+          "endMarker": "@@K037"
+        }
+      ]
+    },
+    "detail.answer.K037": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K037",
+          "endMarker": "@@K038"
+        }
+      ]
+    },
+    "detail.answer.K038": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K038",
+          "endMarker": "@@K039"
+        }
+      ]
+    },
+    "detail.answer.K039": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K039",
+          "endMarker": "@@K040"
+        }
+      ]
+    },
+    "detail.answer.K040": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K040",
+          "endMarker": "@@K041"
+        }
+      ]
+    },
+    "detail.answer.K041": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K041",
+          "endMarker": "@@K042"
+        }
+      ]
+    },
+    "detail.answer.K042": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K042",
+          "endMarker": "@@K043"
+        }
+      ]
+    },
+    "detail.answer.K043": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K043",
+          "endMarker": "@@K044"
+        }
+      ]
+    },
+    "detail.answer.K044": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K044",
+          "endMarker": "@@K045"
+        }
+      ]
+    },
+    "detail.answer.K045": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K045",
+          "endMarker": "@@K046"
+        }
+      ]
+    },
+    "detail.answer.K046": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K046",
+          "endMarker": "@@K047"
+        }
+      ]
+    },
+    "detail.answer.K047": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K047",
+          "endMarker": "@@K048"
+        }
+      ]
+    },
+    "detail.answer.K048": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K048",
+          "endMarker": "@@K049"
+        }
+      ]
+    },
+    "detail.answer.K049": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K049",
+          "endMarker": "@@K050"
+        }
+      ]
+    },
+    "detail.answer.K050": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K050",
+          "endMarker": "@@K051"
+        }
+      ]
+    },
+    "detail.answer.K051": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K051",
+          "endMarker": "@@K052"
+        }
+      ]
+    },
+    "detail.answer.K052": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K052",
+          "endMarker": "@@K053"
+        }
+      ]
+    },
+    "detail.answer.K053": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K053",
+          "endMarker": "@@K054"
+        }
+      ]
+    },
+    "detail.answer.K054": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startMarker": "@@K054",
+          "endMarker": "```"
+        }
+      ]
+    },
+    "content.conversation_ui.1": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## UI_CH1",
+          "endHeading": "## UI_CH1"
+        }
+      ]
+    },
+    "content.conversation_ui.2": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## UI_CH2",
+          "endHeading": "## UI_CH2"
+        }
+      ]
+    },
+    "content.conversation_ui.3:bui": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## UI_CH3_BUI",
+          "endHeading": "## UI_CH3_BUI"
+        }
+      ]
+    },
+    "content.conversation_ui.3:gogi": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## UI_CH3_GOGI",
+          "endHeading": "## UI_CH3_GOGI"
+        }
+      ]
+    },
+    "content.conversation_ui.3:toyo": {
+      "file": "niwa_know_v130.md",
+      "ranges": [
+        {
+          "startHeading": "## UI_CH3_TOYO",
+          "endHeading": "## UI_CH3_TOYO"
+        }
+      ]
+    }
+  }
+}
