@@ -25,12 +25,12 @@ description: 会話型歴史IFゲーム「丹羽戦国評定」を起動・進�
 
 ## 必要資料だけを読む
 
-各応答では、Node.jsスクリプトやリポジトリ直下のコードを実行せず、インストール済みスキル内の`references/source-loading-v1.json`を正本として次の順に処理する。
+各応答では、Node.jsスクリプトやリポジトリ直下のコードを実行せず、インストール済みスキル内の`references/source-loading-v2.json`を正本として次の順に処理する。
 
-1. 会話内で保持している現在状態の`phase`と、今回の入力種別を確定する。
+1. 会話内で保持している現在状態の`phase`、`chapter`、`route`、`currentCharacterId`と、今回の入力種別を確定する。「詳しく聞く」が成立した場合は項目キーも確定する。
 2. JSONの`routes`を記載順に照合し、完全一致または`*`に一致する最初の`profile`を選ぶ。
-3. JSONの`profiles`から、そのプロファイルに属する資料IDだけを得る。
-4. 各資料IDをJSONの`sources`で解決し、指定された実ファイルの`startHeading`から`endHeading`までだけを読む。見出しに`startHeadingOccurrence`または`endHeadingOccurrence`があれば、その出現回数の見出しを境界にする。同じ見出しが両境界なら、その見出しの節だけを読む。
+3. JSONの`profiles`と`selectors`から、現在章・ルート・人物・成立項目に一致する資料IDだけを得る。
+4. 各資料IDをJSONの`sources`で解決し、指定範囲だけを読む。`startHeading`／`endHeading`は見出し境界、`startMarker`／`endMarker`は固定マーカー境界とする。見出しに出現回数があれば、その回数の見出しを境界にする。同じ見出しが両境界なら、その見出しの節だけを読む。
 
 画面名からファイルを推測せず、選ばれなかった資料、将来のフェーズ、指定範囲外を先読みしない。ファイル名・見出し・対応表をこの文書へ転記しない。
 

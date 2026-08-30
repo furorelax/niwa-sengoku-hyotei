@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
-import { applyAskDetail } from "../../../src/core/ask-detail.ts";
+import { applyAskDetail } from "./ask-detail-core.ts";
 
 interface ScriptInput {
   readonly state: { readonly remaining: number; readonly acquiredKeys: readonly string[] };
