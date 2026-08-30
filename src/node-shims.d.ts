@@ -16,7 +16,7 @@ declare module "node:child_process" {
 }
 
 declare module "node:fs" {
-  export function readFileSync(path: number, encoding: "utf8"): string;
+  export function readFileSync(path: number | string, encoding: "utf8"): string;
 }
 
 declare module "node:test" {
