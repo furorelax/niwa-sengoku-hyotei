@@ -23,6 +23,18 @@ description: 会話型歴史IFゲーム「丹羽戦国評定」を起動・進�
 
 この経路では、Markdown画像への変換、外部URL、data URL、base64文字列、画像生成、Apps SDK、MCP、外部サーバー、通常リンクを使用しない。いずれにもフォールバックせず、画像の説明文も代替出力しない。
 
+## 通常画像デバッグ
+
+ユーザー入力が`デバッグ：通常画像`と完全一致する場合は、ほかのすべてのゲーム処理より先に、通常ゲームを開始・再開・進行せず、ゲーム資料を読み込まず、ゲーム状態も作成・更新しない。次の3要素だけを、writing blockやdocumentではない通常のassistantチャット返信として、示した空行を保って出力する。
+
+お市は長秀へ目を向ける。
+
+![お市](https://furorelax.github.io/ai-runtime-assets/niwa/images/character_oichi_rev1.webp)
+
+「長秀殿も、そう思われますか？」
+
+画像Markdownは独立した1行として生成する。固定ブロックや`references`内のMarkdownからコピーせず、bundled asset、MCP、Apps SDKを使用しない。
+
 ## 正本と優先順
 
 ゲーム実行時は、次の順で参照する。
