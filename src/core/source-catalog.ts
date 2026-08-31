@@ -1,4 +1,4 @@
-import config from "../../skills/niwa-sengoku-hyotei/references/source-loading-v2.json" with { type: "json" };
+import config from "../../skills/niwa-sengoku-hyotei/references/source-loading.json" with { type: "json" };
 import type { SourceId } from "./source-loading.ts";
 
 export interface SourceRange {
