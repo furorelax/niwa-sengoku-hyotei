@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
-import config from "../skills/niwa-sengoku-hyotei/references/source-loading-v2.json" with { type: "json" };
+import config from "../skills/niwa-sengoku-hyotei/references/source-loading.json" with { type: "json" };
 import { sourceCatalog, type SourceRange } from "../src/core/source-catalog.ts";
-import { determineLoadProfile, requiredSources, type GameStateForLoading, type InputKind } from "../src/core/source-loading.ts";
+import { determineLoadProfile, requiredSources, routedCharacterImages, type GameStateForLoading, type InputKind } from "../src/core/source-loading.ts";
 
 const skillRoot = `${process.cwd()}/skills/niwa-sengoku-hyotei`;
 const state = (overrides: Partial<GameStateForLoading> = {}): GameStateForLoading => ({
@@ -30,13 +30,49 @@ test("人物会話は現在人物のカード・詳細・関係と現在章の�
   const conversation = state({ phase: "conversation", currentCharacterId: "katsuie" });
   assert.deepEqual(resolve(conversation, "select_character"), [
     "rules.conversation", "content.conversation_ui.1", "content.chapter_topic.1",
-    "character.card.katsuie", "character.detail.katsuie", "character.relationships.katsuie",
+    "character.image.katsuie", "character.card.katsuie", "character.detail.katsuie", "character.relationships.katsuie",
   ]);
   assert.deepEqual(resolve(conversation, "play"), [
-    "rules.conversation", "content.chapter_topic.1", "character.card.katsuie",
+    "rules.conversation", "content.chapter_topic.1", "character.image.katsuie", "character.card.katsuie",
     "character.detail.katsuie", "character.relationships.katsuie",
   ]);
   assert.equal(resolve(conversation, "play").some((id) => id.includes("hideyoshi")), false);
+});
+
+test("全人物IDに一意な完成済み画像Markdownがある", () => {
+  assert.deepEqual(Object.keys(config.characterImages), config.characters);
+  const markdowns = Object.values(config.characterImages).map((image) => image.markdown);
+  assert.equal(new Set(markdowns).size, config.characters.length);
+  for (const [id, image] of Object.entries(config.characterImages)) {
+    assert.equal(/^!\[[^\]]+\]\(https:\/\/[^\s)]+\.(?:webp|png|jpe?g)\)$/u.test(image.markdown), true);
+    assert.equal(image.markdown.includes(`character_${id}_rev1.webp`), true);
+  }
+});
+
+test("人物選択と通常会話は現在人物画像だけを一件選ぶ", () => {
+  for (const currentCharacterId of config.characters as Array<keyof typeof config.characterImages>) {
+    const gameState = state({ phase: "conversation", currentCharacterId });
+    for (const input of ["select_character", "play"] as const) {
+      const images = routedCharacterImages(determineLoadProfile(gameState, input), gameState);
+      assert.deepEqual(images, [{
+        characterId: currentCharacterId,
+        markdown: config.characterImages[currentCharacterId].markdown,
+        role: "current",
+      }]);
+      const selected = resolve(gameState, input).filter((id) => id.startsWith("character.image."));
+      assert.deepEqual(selected, [`character.image.${currentCharacterId}`]);
+    }
+  }
+});
+
+test("ゲスト在席時は訪問先、ゲストの順で選び、退席後はゲストを選ばない", () => {
+  const together = state({ phase: "conversation", currentCharacterId: "katsuie", guestCharacterIds: ["hideyoshi"] });
+  assert.deepEqual(routedCharacterImages("character_talk", together).map((image) => image.characterId), ["katsuie", "hideyoshi"]);
+  assert.deepEqual(resolve(together, "play").filter((id) => id.startsWith("character.image.")), [
+    "character.image.katsuie", "character.image.hideyoshi",
+  ]);
+  const afterExit = { ...together, guestCharacterIds: [] };
+  assert.deepEqual(routedCharacterImages("character_talk", afterExit).map((image) => image.characterId), ["katsuie"]);
 });
 
 test("詳しく聞くは成立項目キー一件の回答だけを選ぶ", () => {
@@ -100,6 +136,7 @@ test("JSONが指す全ファイルと全境界が実在し、順序が正しい"
 
 function loadedLines(ids: readonly string[]): number {
   return ids.reduce((total, id) => {
+    if (id.startsWith("character.image.")) return total;
     const source = sourceCatalog[id as keyof typeof sourceCatalog];
     const lines = readFileSync(`${skillRoot}/references/${source.file}`, "utf8").split(/\r?\n/u);
     return total + source.ranges.reduce((sum, range) => {
@@ -138,9 +175,55 @@ test("単体スキルのscripts importはスキル外を参照しない", () => 
 });
 
 test("インストール対象ディレクトリだけで全ルーティング資料が完結する", () => {
-  assert.equal(readFileSync(`${skillRoot}/references/source-loading-v2.json`, "utf8").length > 0, true);
+  assert.equal(readFileSync(`${skillRoot}/references/source-loading.json`, "utf8").length > 0, true);
   for (const source of Object.values(sourceCatalog)) {
     assert.equal(source.file.includes("/"), false);
     assert.equal(readFileSync(`${skillRoot}/references/${source.file}`, "utf8").length > 0, true);
+  }
+});
+test("正本は固定名だけで存在し、旧版ファイルと参照を残さない", () => {
+  const canonical = [
+    "instructions.md", "knowledge.md", "council-start.md", "battle-system.md",
+    "battle-ch02.md", "prestart.md", "recommendation-flow.md", "chapter-end.md",
+    "source-loading.json",
+  ];
+  const referenceFiles = readdirSync(`${skillRoot}/references`);
+  for (const file of canonical) assert.equal(referenceFiles.includes(file), true);
+  const legacyName = new RegExp(`(?:niwa_[A-Za-z0-9_-]*_${"v"}[0-9]+\\.md|source-loading-${"v"}[0-9]+\\.json)`, "u");
+  assert.equal(referenceFiles.some((file) => legacyName.test(file)), false);
+
+  const files = [
+    `${process.cwd()}/AGENTS.md`, `${process.cwd()}/package.json`,
+    `${skillRoot}/SKILL.md`, `${skillRoot}/references/source-loading.json`,
+    ...readdirSync(`${skillRoot}/references`).filter((file) => file.endsWith(".md")).map((file) => `${skillRoot}/references/${file}`),
+    ...readdirSync(`${skillRoot}/scripts`).map((file) => `${skillRoot}/scripts/${file}`),
+    ...readdirSync(`${process.cwd()}/src/core`).filter((file) => file.endsWith(".ts")).map((file) => `${process.cwd()}/src/core/${file}`),
+  ];
+  for (const file of files) assert.equal(legacyName.test(readFileSync(file, "utf8")), false);
+
+});
+
+test("各会話状態は優先順位どおり一意なresponseScaleを選ぶ", async () => {
+  const { determineResponseScale } = await import("../src/core/source-loading.ts");
+  assert.equal(determineResponseScale({}), "standard");
+  assert.equal(determineResponseScale({ firstVisit: true }), "firstVisit");
+  assert.equal(determineResponseScale({ namedGuestPresent: true, firstVisit: true }), "guestScene");
+  assert.equal(determineResponseScale({ shortSceneReason: "exitProcessing", firstVisit: true }), "firstVisit");
+  assert.equal(determineResponseScale({ askDetail: true, namedGuestPresent: true, firstVisit: true }), "pivotal");
+  assert.deepEqual(config.responseScale.selectionPriority, ["pivotal", "guestScene", "firstVisit", "short", "standard"]);
+});
+
+test("shortは明示的な特殊場面だけに使い、短いユーザー入力を判定材料にしない", async () => {
+  const { determineResponseScale } = await import("../src/core/source-loading.ts");
+  assert.equal(determineResponseScale({ shortSceneReason: "briefInterruption" }), "short");
+  assert.equal(determineResponseScale({}), "standard");
+  assert.equal(config.responseScale.shortInputDoesNotImplyShort, true);
+});
+
+test("全responseScaleは必須ビート範囲と参考文字数範囲を一意に持つ", () => {
+  for (const definition of Object.values(config.responseScale.definitions)) {
+    assert.equal(definition.beats.min >= 1 && definition.beats.max >= definition.beats.min, true);
+    assert.equal(definition.bodyCharacters.advisory, true);
+    assert.equal(definition.bodyCharacters.max >= definition.bodyCharacters.min, true);
   }
 });
